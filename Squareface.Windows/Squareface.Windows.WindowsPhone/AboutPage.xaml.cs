@@ -107,5 +107,15 @@ namespace Squareface.Windows
 		}
 
 		#endregion
+
+		private void SendFeedback_Click(object sender, RoutedEventArgs e)
+		{
+			//TODO
+		}
+
+		private void RateApp_Click(object sender, RoutedEventArgs e)
+		{
+			//TODO
+		}
 	}
 }

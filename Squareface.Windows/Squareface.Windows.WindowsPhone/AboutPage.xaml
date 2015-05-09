@@ -8,6 +8,14 @@
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
+	<!-- AppBar minimiert einblenden -->
+	<Page.BottomAppBar>
+		<CommandBar ClosedDisplayMode="Minimal">
+			<AppBarButton Icon="Favorite" Label="Rate App" Click="RateApp_Click"/>
+			<AppBarButton Icon="Send" Label="Feedback" Click="SendFeedback_Click"/>
+		</CommandBar>
+	</Page.BottomAppBar>
+
 	<Grid x:Name="LayoutRoot">
 
 		<Grid.ChildrenTransitions>
@@ -55,21 +63,26 @@
 
 				<!-- <TextBlock Text="{StaticResource AppName}" Grid.Column="1" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="20" Margin="19,2,4,2" /> -->
 
+				<StackPanel Grid.Column="1" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="19,2,4,12">
+					<TextBlock Text="Thanks for using Squareface!" FontSize="14" />
+					<TextBlock Text="Feel free to contact us." FontSize="14" />
+				</StackPanel>
+
 				<TextBlock Text="Version:" Grid.Column="0" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="14" />
 				<TextBlock Text="{StaticResource AppVersion}" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="20" Margin="19,2,8,2" />
 
 				<TextBlock Text="Developer:" Grid.Column="0" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="14" />
 				<TextBlock Text="{StaticResource AppDeveloper}" Grid.Column="1" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="20" Margin="19,2,4,2" />
 
-				<StackPanel Grid.Column="1" Grid.Row="3" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="19,2,4,2">
+				<StackPanel Grid.Column="1" Grid.Row="3" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="19,2,4,12">
 					<TextBlock Text="hello@rootsoup.de" FontSize="14" />
 					<TextBlock Text="rootsoup.de" FontSize="14" />
 				</StackPanel>
 
-				<TextBlock Text="Disclaimer:" Grid.Column="0" Grid.Row="4" VerticalAlignment="Top" HorizontalAlignment="Right" FontSize="14" Margin="0,4,0,0" />
+				<TextBlock Text="Disclaimer:" Grid.Column="0" Grid.Row="4" VerticalAlignment="Top" HorizontalAlignment="Right" FontSize="14" Margin="0,2,0,0" />
 				<StackPanel Grid.Column="1" Grid.Row="4" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="19,2,4,2">
-					<TextBlock Text="Lorem Ipsum...." FontSize="14" />
-					<TextBlock Text="Dannandannndaranndann..." FontSize="14" />
+					<TextBlock TextWrapping="Wrap" FontSize="14" Width="255" 
+										 Text="All pictures you import in or export from this app belong to you. We can not access your data anyway. This app is only made for and through fun, so we hope you enjoy using it as much as we enjoyed developping!" />
 				</StackPanel>
 
 			</Grid>

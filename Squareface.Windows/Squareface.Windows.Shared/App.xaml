@@ -3,5 +3,17 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:Squareface.Windows">
+	
+	<Application.Resources>
+		<x:String x:Key="AppName">
+			Squareface
+		</x:String>
+		<x:String x:Key="AppVersion">
+			1.0.0
+		</x:String>
+		<x:String x:Key="AppDeveloper">
+			rootsoup
+		</x:String>
+	</Application.Resources>
 
 </Application>

@@ -165,7 +165,7 @@ namespace Squareface.Windows
 
                     buffer.Position = 0;
                     buffer.Write(pixels, 0, pixels.Length);
-                    PreviewImage.Source = nBitmap;
+                PreviewImage.Source = nBitmap;
                 }
             }
 
@@ -175,11 +175,28 @@ namespace Squareface.Windows
         private async void ModeChanged(object sender, RangeBaseValueChangedEventArgs e)
         {
             await StartPixelationAsync();
-        }
+            }
 
         private async void PixelSizeChanged(object sender, RangeBaseValueChangedEventArgs e)
         {
             await StartPixelationAsync();
         }
+
+		// Fall Konflikt: Nur folgendes wurde geändert:
+		private void Export_Click(object sender, RoutedEventArgs e)
+		{
+			//TODO
+		}
+
+		private void SaveChanges_Click(object sender, RoutedEventArgs e)
+		{
+			//TODO
+		}
+
+		private void Delete_Click(object sender, RoutedEventArgs e)
+		{
+			//TODO
+		}
+		// ... bis hierher!
 	}
 }

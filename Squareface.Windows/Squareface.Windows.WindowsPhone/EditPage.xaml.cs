@@ -140,7 +140,8 @@ namespace Squareface.Windows
                 return false;
             }
 
-            int pixelSize = (int)Math.Pow(2, PixelSizeSlider.Value - 1);//workaround...
+			List<int> fiboList = new List<int>(){1, 5, 8, 13, 21, 34, 55, 89, 144, 233, 377, 610};
+	        int pixelSize = fiboList[(int)PixelSizeSlider.Value];
             const int baseSize = 512;
 
             using (var stream = await (this.DataContext as StorageFile).OpenReadAsync())

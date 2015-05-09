@@ -90,18 +90,20 @@ namespace Squareface.Windows
                 // Nutzer hat den Dialog abgebrochen
                 if (file != null)
                 {
-                    IRandomAccessStream fileStream = await file.OpenAsync(FileAccessMode.Read);
+					//IRandomAccessStream fileStream = await file.OpenAsync(FileAccessMode.Read);
 
-                    SourceImage.SetSource(fileStream);
-                    testImage.Source = SourceImage;
-                    this.DataContext = file;
+					//SourceImage.SetSource(fileStream);
+					//testImage.Source = SourceImage;
+                    //this.DataContext = file;
+
+					Frame.Navigate(typeof(EditPage), file);
                 }
             }
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            LoadImage();
-        }
+		private void NewImageImportClick(object sender, TappedRoutedEventArgs e)
+		{
+			LoadImage();
+		}
     }
 }

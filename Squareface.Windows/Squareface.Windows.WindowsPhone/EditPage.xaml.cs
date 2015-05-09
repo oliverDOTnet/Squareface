@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.Graphics.Display;
@@ -116,5 +117,56 @@ namespace Squareface.Windows
 		}
 
 		#endregion
+
+        private async Task<bool> StartPixelationAsync()
+        {
+            int height = SourceImage.PixelHeight;
+            int width = SourceImage.PixelWidth;
+
+            if ((double)width / (double)height < 0.5 || (double)width / (double)height > 2)
+            {
+                return false;
+            }
+
+            int pixelSize = 33;
+            const int baseSize = 512;
+
+            using (var stream = await (this.DataContext as StorageFile).OpenReadAsync())
+            {
+                WriteableBitmap bitmap = new WriteableBitmap(width, height);
+                await bitmap.SetSourceAsync(stream);
+
+                width = baseSize;
+                height = baseSize;
+
+                if (width > height)
+                {
+                    width = width * baseSize / height;
+                    height = baseSize;
+                }
+                else
+                {
+                    height = height * baseSize / width;
+                    width = baseSize;
+                }
+
+                var nBitmap = await BitmapHelper.ResizeImage(bitmap, (uint)width, (uint)height);
+                PreviewImage.Source = nBitmap;
+                //using (var buffer = nBitmap.PixelBuffer.AsStream())
+                //{
+                //    Byte[] pixels = new Byte[4 * width * height];
+                //    buffer.Read(pixels, 0, pixels.Length);
+
+                //    PixelateEngine engine = new PixelateEngine();
+                //    engine.StartPixelation(pixels, width, height, pixelSize);
+
+                //    buffer.Position = 0;
+                //    buffer.Write(pixels, 0, pixels.Length);
+                //    testImage.Source = nBitmap;
+                //}
+            }
+
+            return true;
+        }
 	}
 }

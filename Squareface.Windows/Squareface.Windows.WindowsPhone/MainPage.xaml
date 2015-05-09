@@ -5,7 +5,7 @@
     xmlns:local="using:Squareface.Windows"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-		xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
+    xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
     xmlns:arcanaStudio="using:ArcanaStudio"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
@@ -53,7 +53,7 @@
 				</Grid>
 			</Border>
 
-			<Image Grid.Row="1"  x:Name="testImage"/>
+			<Image Grid.Row="1" x:Name="testImage"/>
 		</Grid>
 
 	</Grid>

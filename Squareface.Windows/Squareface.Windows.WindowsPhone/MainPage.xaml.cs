@@ -1,4 +1,5 @@
 ﻿using Squareface.Core;
+using Squareface.Windows.Common;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -31,7 +32,6 @@ namespace Squareface.Windows
     /// </summary>
     public sealed partial class MainPage : Page
     {
-        private BitmapImage SourceImage;
         private CoreApplicationView view;
 
         public MainPage()
@@ -49,7 +49,6 @@ namespace Squareface.Windows
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             // TODO: Seite vorbereiten, um sie hier anzuzeigen.
-            SourceImage = new BitmapImage();
 
             // TODO: Wenn Ihre Anwendung mehrere Seiten enthält, stellen Sie sicher, dass
             // die Hardware-Zurück-Taste behandelt wird, indem Sie das
@@ -93,109 +92,12 @@ namespace Squareface.Windows
                 // Nutzer hat den Dialog abgebrochen
                 if (file != null)
                 {
-					//IRandomAccessStream fileStream = await file.OpenAsync(FileAccessMode.Read);
-
-                    SourceImage.SetSource(fileStream);
-                    testImage.Source = SourceImage;
-                    this.DataContext = file;
-                    
-                    await StartPixelationAsync();
+                    Frame.Navigate(typeof(EditPage), file);
                 }
             }
         }
 
-        private async Task<bool> StartPixelationAsync()
-        {
-            int height = SourceImage.PixelHeight;
-            int width = SourceImage.PixelWidth;
-
-            if((double)width / (double)height < 0.5 || (double)width / (double)height > 2)
-            {
-                return false;
-            }
-
-            int pixelSize = 33;
-            const int baseSize = 512;
-
-            using (var stream = await (this.DataContext as StorageFile).OpenReadAsync())
-            {
-                WriteableBitmap bitmap = new WriteableBitmap(width, height);
-                await bitmap.SetSourceAsync(stream);
-
-                width = baseSize;
-                height = baseSize;
-
-                if(width > height)
-                {
-                    width = width * baseSize / height;
-                    height = baseSize;
-                }
-                else
-                {
-                    height = height * baseSize / width;
-                    width = baseSize;
-                }
-
-                var nBitmap = await ResizeImage(bitmap, (uint)width, (uint)height);
-                testImage.Source = nBitmap;
-                //using (var buffer = nBitmap.PixelBuffer.AsStream())
-                //{
-                //    Byte[] pixels = new Byte[4 * width * height];
-                //    buffer.Read(pixels, 0, pixels.Length);
-
-                //    PixelateEngine engine = new PixelateEngine();
-                //    engine.StartPixelation(pixels, width, height, pixelSize);
-
-                //    buffer.Position = 0;
-                //    buffer.Write(pixels, 0, pixels.Length);
-                //    testImage.Source = nBitmap;
-                //}
-                }
-
-            return true;
-            }
-
-        private async Task<WriteableBitmap> ResizeImage(WriteableBitmap baseWriteBitmap, uint width, uint height)
-        {
-            Stream stream = baseWriteBitmap.PixelBuffer.AsStream();
-            byte[] pixels = new byte[(uint)stream.Length];
-            await stream.ReadAsync(pixels, 0, pixels.Length);
-
-            var inMemoryRandomStream = new InMemoryRandomAccessStream();
-            var encoder = await BitmapEncoder.CreateAsync(BitmapEncoder.JpegEncoderId, inMemoryRandomStream);
-            encoder.SetPixelData(BitmapPixelFormat.Bgra8, BitmapAlphaMode.Ignore, (uint)baseWriteBitmap.PixelWidth, (uint)baseWriteBitmap.PixelHeight, 96, 96, pixels);
-            await encoder.FlushAsync();
-
-            var transform = new BitmapTransform
-            {
-                ScaledWidth = width,
-                ScaledHeight = height
-            };
-
-            inMemoryRandomStream.Seek(0);
-            var decoder = await BitmapDecoder.CreateAsync(inMemoryRandomStream);
-            var pixelData = await decoder.GetPixelDataAsync(
-                            BitmapPixelFormat.Bgra8,
-                            BitmapAlphaMode.Straight,
-                            transform,
-                            ExifOrientationMode.IgnoreExifOrientation,
-                            ColorManagementMode.DoNotColorManage);
-
-            var sourceDecodedPixels = pixelData.DetachPixelData();
-
-            var inMemoryRandomStream2 = new InMemoryRandomAccessStream();
-            var encoder2 = await BitmapEncoder.CreateAsync(BitmapEncoder.JpegEncoderId, inMemoryRandomStream2);
-            encoder2.SetPixelData(BitmapPixelFormat.Bgra8, BitmapAlphaMode.Ignore, width, height, 96, 96, sourceDecodedPixels);
-            await encoder2.FlushAsync();
-            inMemoryRandomStream2.Seek(0);
-
-            var bitmap = new WriteableBitmap((int)width, (int)height);
-            await bitmap.SetSourceAsync(inMemoryRandomStream2);
-
-            return bitmap;
-        }
-
-		private void NewImageImportClick(object sender, TappedRoutedEventArgs e)
+        private void NewImageImportClick(object sender, TappedRoutedEventArgs e)
         {
             LoadImage();
         }

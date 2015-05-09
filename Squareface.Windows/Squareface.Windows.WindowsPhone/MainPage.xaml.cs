@@ -95,11 +95,13 @@ namespace Squareface.Windows
                 {
 					//IRandomAccessStream fileStream = await file.OpenAsync(FileAccessMode.Read);
 
-                    SourceImage.SetSource(fileStream);
-                    testImage.Source = SourceImage;
-                    this.DataContext = file;
+					//SourceImage.SetSource(fileStream);
+					//testImage.Source = SourceImage;
+					//this.DataContext = file;
                     
-                    await StartPixelationAsync();
+					//await StartPixelationAsync();
+
+	                Frame.Navigate(typeof (EditPage), file);
                 }
             }
         }

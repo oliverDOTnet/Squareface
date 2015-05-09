@@ -116,5 +116,22 @@ namespace Squareface.Windows
 		}
 
 		#endregion
+
+		// Fall Konflikt: Nur folgendes wurde geändert:
+		private void Export_Click(object sender, RoutedEventArgs e)
+		{
+			//TODO
+		}
+
+		private void SaveChanges_Click(object sender, RoutedEventArgs e)
+		{
+			//TODO
+		}
+
+		private void Delete_Click(object sender, RoutedEventArgs e)
+		{
+			//TODO
+		}
+		// ... bis hierher!
 	}
 }

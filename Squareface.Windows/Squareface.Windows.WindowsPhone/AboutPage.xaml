@@ -8,9 +8,8 @@
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-	<!-- AppBar minimiert einblenden -->
 	<Page.BottomAppBar>
-		<CommandBar ClosedDisplayMode="Minimal">
+		<CommandBar ClosedDisplayMode="Compact">
 			<AppBarButton Icon="Favorite" Label="Rate App" Click="RateApp_Click"/>
 			<AppBarButton Icon="Send" Label="Feedback" Click="SendFeedback_Click"/>
 		</CommandBar>

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using Windows.ApplicationModel.Email;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.Graphics.Display;
@@ -108,14 +109,32 @@ namespace Squareface.Windows
 
 		#endregion
 
-		private void SendFeedback_Click(object sender, RoutedEventArgs e)
+		private async void SendFeedback_Click(object sender, RoutedEventArgs e)
 		{
-			//TODO
+			//predefine Recipient
+			EmailRecipient sendTo = new EmailRecipient()
+			{
+				Address = "hello@rootsoup.de"
+			};
+
+			//generate mail object
+			EmailMessage mail = new EmailMessage();
+			mail.Subject = "Feedback from Squareface App";
+			//mail.Body = "this is the Body";
+
+			//add recipients to the mail object
+			mail.To.Add(sendTo);
+			//mail.Bcc.Add(sendTo);
+			//mail.CC.Add(sendTo);
+
+			//open the share contract with Mail only:
+			await EmailManager.ShowComposeNewEmailAsync(mail);
 		}
 
-		private void RateApp_Click(object sender, RoutedEventArgs e)
+		private async void RateApp_Click(object sender, RoutedEventArgs e)
 		{
 			//TODO
+			//await Windows.System.Launcher.LaunchUriAsync(new Uri("ms-windows-store:reviewapp?appid=" + CurrentApp.AppId));
 		}
 	}
 }

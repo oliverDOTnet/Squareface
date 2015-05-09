@@ -8,9 +8,8 @@
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-	<!-- AppBar minimiert einblenden -->
 	<Page.BottomAppBar>
-		<CommandBar ClosedDisplayMode="Minimal">
+		<CommandBar ClosedDisplayMode="Compact">
 			<AppBarButton Icon="Savelocal" Label="Export" Click="Export_Click"/>
 			<AppBarButton Icon="Accept" Label="Save" Click="SaveChanges_Click"/>
 			<AppBarButton Icon="Delete" Label="Delete" Click="Delete_Click"/>

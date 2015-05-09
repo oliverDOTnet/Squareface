@@ -93,7 +93,7 @@ namespace Squareface.Windows
                 // Nutzer hat den Dialog abgebrochen
                 if (file != null)
                 {
-                    IRandomAccessStream fileStream = await file.OpenAsync(FileAccessMode.Read);
+					//IRandomAccessStream fileStream = await file.OpenAsync(FileAccessMode.Read);
 
                     SourceImage.SetSource(fileStream);
                     testImage.Source = SourceImage;
@@ -150,10 +150,10 @@ namespace Squareface.Windows
                 //    buffer.Write(pixels, 0, pixels.Length);
                 //    testImage.Source = nBitmap;
                 //}
-            }
+                }
 
             return true;
-        }
+            }
 
         private async Task<WriteableBitmap> ResizeImage(WriteableBitmap baseWriteBitmap, uint width, uint height)
         {
@@ -195,7 +195,7 @@ namespace Squareface.Windows
             return bitmap;
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+		private void NewImageImportClick(object sender, TappedRoutedEventArgs e)
         {
             LoadImage();
         }

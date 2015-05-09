@@ -5,19 +5,57 @@
     xmlns:local="using:Squareface.Windows"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+		xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
+    xmlns:arcanaStudio="using:ArcanaStudio"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="50"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-        
-        
-        <Button Grid.Row="0" Background="{StaticResource PhoneAccentBrush}" Content="New" Click="Button_Click"/>
-        <Image  Grid.Row="1" Margin="0,50,0,0"  x:Name="testImage"/>
-        
-        <Slider Minimum="1" Value="1" Maximum="3" Grid.Row="1"/>
-    </Grid>
+	<Grid>
+
+		<Grid.ChildrenTransitions>
+			<TransitionCollection>
+				<EntranceThemeTransition/>
+			</TransitionCollection>
+		</Grid.ChildrenTransitions>
+
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="*"/>
+		</Grid.RowDefinitions>
+
+		<!-- Titelbereich -->
+		<StackPanel Grid.Row="0" Margin="19,0,0,0">
+			<TextBlock Text="SQUAREFACE" Style="{ThemeResource TitleTextBlockStyle}" Margin="0,12,0,0"/>
+			<TextBlock Text="gallery" Margin="0,-6.5,0,26.5" Style="{ThemeResource HeaderTextBlockStyle}" CharacterSpacing="{ThemeResource PivotHeaderItemCharacterSpacing}"/>
+		</StackPanel>
+
+		<!-- Inhaltlicher Bereich -->
+		<Grid Grid.Row="1" Margin="19,9.5,19,0">
+
+			<Grid.RowDefinitions>
+				<RowDefinition Height="Auto"/>
+				<RowDefinition Height="*"/>
+			</Grid.RowDefinitions>
+
+			<Border Grid.Row="0" Tapped="NewImageImportClick" Height="120" Background="{StaticResource PhoneAccentBrush}">
+				<interactivity:Interaction.Behaviors>
+					<arcanaStudio:UniversalTilt />
+				</interactivity:Interaction.Behaviors>
+
+
+				<Grid VerticalAlignment="Bottom" Margin="15">
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="Auto" />
+						<ColumnDefinition Width="*" />
+					</Grid.ColumnDefinitions>
+					<TextBlock Text="&#xE109;" Grid.Column="0" FontFamily="Segoe UI Symbol" FontSize="17" VerticalAlignment="Center"/>
+					<TextBlock Text="New" Grid.Column="1" FontSize="24" Margin="5,4,0,0"/>
+				</Grid>
+			</Border>
+
+			<Image Grid.Row="1"  x:Name="testImage"/>
+		</Grid>
+
+	</Grid>
 </Page>
+	

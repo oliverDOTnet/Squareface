@@ -13,7 +13,11 @@
             <RowDefinition Height="50"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <Button Grid.Row="0"  Content="New" Click="Button_Click"/>
-        <Image Grid.Row="1"  x:Name="testImage"/>
+        
+        
+        <Button Grid.Row="0" Background="{StaticResource PhoneAccentBrush}" Content="New" Click="Button_Click"/>
+        <Image  Grid.Row="1" Margin="0,50,0,0"  x:Name="testImage"/>
+        
+        <Slider Minimum="1" Value="1" Maximum="3" Grid.Row="1"/>
     </Grid>
 </Page>

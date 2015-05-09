@@ -19,6 +19,8 @@ namespace Squareface.Core
             {
                 for (int yy = y; yy < y + pixelSize; yy++)
                 {
+                    //if(yy + width > )
+
                     int index = ((yy * width) + xx) * 4;
 
                     pixels[index + 0] = b;

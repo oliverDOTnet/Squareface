@@ -1,4 +1,5 @@
-﻿using Squareface.Windows.Common;
+﻿using Squareface.Core;
+using Squareface.Windows.Common;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -77,6 +78,8 @@ namespace Squareface.Windows
 			IRandomAccessStream fileStream = await ((StorageFile)e.NavigationParameter).OpenAsync(FileAccessMode.Read);
 			SourceImage.SetSource(fileStream);
 			PreviewImage.Source = SourceImage;
+
+            await StartPixelationAsync();
 		}
 
 		/// <summary>
@@ -128,7 +131,7 @@ namespace Squareface.Windows
                 return false;
             }
 
-            int pixelSize = 33;
+            int pixelSize = (int)Math.Pow(2, PixelSizeSlider.Value - 1);
             const int baseSize = 512;
 
             using (var stream = await (this.DataContext as StorageFile).OpenReadAsync())
@@ -151,22 +154,32 @@ namespace Squareface.Windows
                 }
 
                 var nBitmap = await BitmapHelper.ResizeImage(bitmap, (uint)width, (uint)height);
-                PreviewImage.Source = nBitmap;
-                //using (var buffer = nBitmap.PixelBuffer.AsStream())
-                //{
-                //    Byte[] pixels = new Byte[4 * width * height];
-                //    buffer.Read(pixels, 0, pixels.Length);
+                //PreviewImage.Source = nBitmap;
+                using (var buffer = nBitmap.PixelBuffer.AsStream())
+                {
+                    Byte[] pixels = new Byte[4 * width * height];
+                    buffer.Read(pixels, 0, pixels.Length);
 
-                //    PixelateEngine engine = new PixelateEngine();
-                //    engine.StartPixelation(pixels, width, height, pixelSize);
+                    PixelateEngine engine = new PixelateEngine();
+                    engine.StartPixelation(pixels, width, height, pixelSize);
 
-                //    buffer.Position = 0;
-                //    buffer.Write(pixels, 0, pixels.Length);
-                //    testImage.Source = nBitmap;
-                //}
+                    buffer.Position = 0;
+                    buffer.Write(pixels, 0, pixels.Length);
+                    PreviewImage.Source = nBitmap;
+                }
             }
 
             return true;
+        }
+
+        private async void ModeChanged(object sender, RangeBaseValueChangedEventArgs e)
+        {
+            await StartPixelationAsync();
+        }
+
+        private async void PixelSizeChanged(object sender, RangeBaseValueChangedEventArgs e)
+        {
+            await StartPixelationAsync();
         }
 	}
 }

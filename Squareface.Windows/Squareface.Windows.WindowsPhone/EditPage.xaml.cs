@@ -206,5 +206,10 @@ namespace Squareface.Windows
         {
             //TODO
         }
+
+		private void ShowAboutPage_Click(object sender, RoutedEventArgs e)
+		{
+			Frame.Navigate(typeof (AboutPage));
+		}
     }
 }

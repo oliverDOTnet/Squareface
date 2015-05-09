@@ -38,21 +38,26 @@
 			<Image Grid.Row="0" x:Name="PreviewImage"/>
 			
 			<!-- Control Elements -->
-			<Grid>
+			<Grid Grid.Row="1">
 				<Grid.RowDefinitions>
+					<RowDefinition Height="Auto"/>
 					<RowDefinition Height="Auto"/>
 					<RowDefinition Height="*"/>
 				</Grid.RowDefinitions>
+				
 				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="Auto"/>
 					<ColumnDefinition Width="Auto"/>
 					<ColumnDefinition Width="*"/>
 				</Grid.ColumnDefinitions>
 				
-				<TextBlock Text="Mode:" Grid.Column="0" Grid.Row="0" VerticalAlignment="Center"/>
-				<Slider Grid.Column="1" Grid.Row="0" StepFrequency="1" Minimum="1" Maximum="3" x:Name="PixelationModeSlider" />
+				<TextBlock Text="Mode:" Grid.Column="0" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="14" />
+				<TextBlock Text="{Binding ElementName=PixelationModeSlider, Path=Value}" Grid.Column="1" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="24" Margin="8" />
+				<Slider Grid.Column="2" Grid.Row="0" StepFrequency="1" Minimum="1" Maximum="3" x:Name="PixelationModeSlider" Margin="10,8,10,0"/>
 
-				<TextBlock Text="Pixelsize:" Grid.Column="0" Grid.Row="1" VerticalAlignment="Center"/>
-				<Slider Grid.Column="1" Grid.Row="1" StepFrequency="1" Minimum="1" Maximum="9" x:Name="PixelSizeSlider" Value="4" />
+				<TextBlock Text="Pixelsize:" Grid.Column="0" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="14" />
+				<TextBlock Text="{Binding ElementName=PixelSizeSlider, Path=Value}" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="24" Margin="8" />
+				<Slider Grid.Column="2" Grid.Row="1" Minimum="1" Maximum="9" x:Name="PixelSizeSlider" Margin="10,8,10,0" Value="4" />
 
 			</Grid>
 

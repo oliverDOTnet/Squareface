@@ -149,9 +149,6 @@ namespace Squareface.Windows
                 WriteableBitmap bitmap = new WriteableBitmap(width, height);
                 await bitmap.SetSourceAsync(stream);
 
-                width = baseSize;
-                height = baseSize;
-
                 if (width > height)
                 {
                     width = width * baseSize / height;
@@ -164,19 +161,19 @@ namespace Squareface.Windows
                 }
 
                 var nBitmap = await BitmapHelper.ResizeImage(bitmap, (uint)width, (uint)height);
-                //PreviewImage.Source = nBitmap;
-                using (var buffer = nBitmap.PixelBuffer.AsStream())
-                {
-                    Byte[] pixels = new Byte[4 * width * height];
-                    buffer.Read(pixels, 0, pixels.Length);
+                PreviewImage.Source = nBitmap;
+                //using (var buffer = nBitmap.PixelBuffer.AsStream())
+                //{
+                //    Byte[] pixels = new Byte[4 * width * height];
+                //    buffer.Read(pixels, 0, pixels.Length);
 
-                    PixelateEngine engine = new PixelateEngine();
-                    engine.StartPixelation(pixels, width, height, pixelSize);
+                //    PixelateEngine engine = new PixelateEngine();
+                //    engine.StartPixelation(pixels, width, height, pixelSize);
 
-                    buffer.Position = 0;
-                    buffer.Write(pixels, 0, pixels.Length);
-                    PreviewImage.Source = nBitmap;
-                }
+                //    buffer.Position = 0;
+                //    buffer.Write(pixels, 0, pixels.Length);
+                //    PreviewImage.Source = nBitmap;
+                //}
             }
 
             return true;
